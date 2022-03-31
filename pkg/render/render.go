@@ -20,6 +20,10 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
+// AddDefaultData to make data sharing easy
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+	return td
+}
 func Template(w http.ResponseWriter, tmpl string, templateData *models.TemplateData) {
 	// get the template cache from the app config
 	// tc, err := CreatTemplateCache() ... this works but it loads everytime we load a page and its not efficent
@@ -39,6 +43,7 @@ func Template(w http.ResponseWriter, tmpl string, templateData *models.TemplateD
 
 	buffer := new(bytes.Buffer)
 
+	templateData = AddDefaultData(templateData)
 	_ = t.Execute(buffer, templateData)
 
 	_, err := buffer.WriteTo(w)
