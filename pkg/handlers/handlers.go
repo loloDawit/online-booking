@@ -1,13 +1,15 @@
-package main
+package handlers
 
 import (
 	"net/http"
+
+	"gitlab.nordstrom.com/online-booking/pkg/render"
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "home.page.html")
+	render.Template(w, "home.page.html")
 }
 
 func About(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "about.page.html")
+	render.Template(w, "about.page.html")
 }
