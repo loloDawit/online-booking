@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 
 	"gitlab.nordstrom.com/online-booking/pkg/config"
+	"gitlab.nordstrom.com/online-booking/pkg/models"
 )
 
 var functions = template.FuncMap{}
@@ -19,7 +20,7 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-func Template(w http.ResponseWriter, tmpl string) {
+func Template(w http.ResponseWriter, tmpl string, templateData *models.TemplateData) {
 	// get the template cache from the app config
 	// tc, err := CreatTemplateCache() ... this works but it loads everytime we load a page and its not efficent
 	var tc map[string]*template.Template
@@ -38,7 +39,7 @@ func Template(w http.ResponseWriter, tmpl string) {
 
 	buffer := new(bytes.Buffer)
 
-	_ = t.Execute(buffer, nil)
+	_ = t.Execute(buffer, templateData)
 
 	_, err := buffer.WriteTo(w)
 

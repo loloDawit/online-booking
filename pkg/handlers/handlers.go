@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"gitlab.nordstrom.com/online-booking/pkg/config"
+	"gitlab.nordstrom.com/online-booking/pkg/models"
 	"gitlab.nordstrom.com/online-booking/pkg/render"
 )
 
@@ -27,9 +28,12 @@ func NewHandlers(r *Repository) {
 }
 
 func (re *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	render.Template(w, "home.page.html")
+	stringMap := make(map[string]string)
+	stringMap["test"] = "hellow world"
+
+	render.Template(w, "home.page.html", &models.TemplateData{})
 }
 
 func (re *Repository) About(w http.ResponseWriter, r *http.Request) {
-	render.Template(w, "about.page.html")
+	render.Template(w, "about.page.html", &models.TemplateData{})
 }
