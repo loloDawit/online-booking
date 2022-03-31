@@ -12,8 +12,8 @@ import (
 var functions = template.FuncMap{}
 
 func Template(w http.ResponseWriter, tmpl string) {
-
 	tc, err := CreatTemplateCache()
+	
 	if err != nil {
 		log.Fatal(err)
 	}
