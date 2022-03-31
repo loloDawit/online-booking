@@ -31,7 +31,7 @@ func (re *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	stringMap := make(map[string]string)
 	stringMap["test"] = "hellow world"
 
-	render.Template(w, "home.page.html", &models.TemplateData{})
+	render.Template(w, "home.page.html", &models.TemplateData{StringMap: stringMap})
 }
 
 func (re *Repository) About(w http.ResponseWriter, r *http.Request) {
