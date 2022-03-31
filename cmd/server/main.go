@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"gitlab.nordstrom.com/online-booking/pkg/handlers"
 	"net/http"
+
+	"gitlab.nordstrom.com/online-booking/pkg/handlers"
 )
 
 const portNumber = ":8080"
