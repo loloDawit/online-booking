@@ -7,28 +7,34 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"gitlab.nordstrom.com/online-booking/pkg/config"
 )
 
 var functions = template.FuncMap{}
+var app *config.AppConfig
+
+// sets the config for the template pkg
+func NewTemplates(a *config.AppConfig) {
+	app = a
+}
 
 func Template(w http.ResponseWriter, tmpl string) {
-	tc, err := CreatTemplateCache()
-	
-	if err != nil {
-		log.Fatal(err)
-	}
+	// get the template cache from the app config
+	// tc, err := CreatTemplateCache() ... this works but it loads everytime we load a page and its not efficent
+	tc := app.TemplateCache
 
 	t, ok := tc[tmpl]
 
 	if !ok {
-		log.Fatal(err)
+		log.Fatal("Could not get template from template cache")
 	}
 
 	buffer := new(bytes.Buffer)
 
 	_ = t.Execute(buffer, nil)
 
-	_, err = buffer.WriteTo(w)
+	_, err := buffer.WriteTo(w)
 
 	if err != nil {
 		fmt.Println("Error writing template to browser", err)
