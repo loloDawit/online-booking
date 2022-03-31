@@ -33,7 +33,7 @@ func main() {
 		Handler: routes(&app),
 	}
 
-	fmt.Printf(fmt.Sprintf("Server running on port:: %s", portNumber))
+	fmt.Printf(fmt.Sprintf("Server running on port %s", portNumber))
 	err = server.ListenAndServe()
 
 	log.Fatal(err)
