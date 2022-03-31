@@ -15,17 +15,20 @@ import (
 const portNumber = ":8080"
 
 var app config.AppConfig
+var sessionManager *scs.SessionManager
 
 func main() {
 	// update for production
 	app.IsProd = false
 
 	// Initialize a new session manager and configure the session lifetime.
-	sessionManager := scs.New()
+	sessionManager = scs.New()
 	sessionManager.Lifetime = 24 * time.Hour
 	sessionManager.Cookie.Persist = true
 	sessionManager.Cookie.SameSite = http.SameSiteLaxMode
 	sessionManager.Cookie.Secure = app.IsProd
+
+	app.SessionManager = sessionManager
 
 	tc, err := render.CreatTemplateCache()
 	if err != nil {
