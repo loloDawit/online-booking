@@ -22,7 +22,13 @@ func NewTemplates(a *config.AppConfig) {
 func Template(w http.ResponseWriter, tmpl string) {
 	// get the template cache from the app config
 	// tc, err := CreatTemplateCache() ... this works but it loads everytime we load a page and its not efficent
-	tc := app.TemplateCache
+	var tc map[string]*template.Template
+
+	if app.UseCache {
+		tc = app.TemplateCache // read info from the cache otherwise rebuild
+	} else {
+		tc, _ = CreatTemplateCache()
+	}
 
 	t, ok := tc[tmpl]
 
